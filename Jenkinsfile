@@ -1,16 +1,13 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'kubernetes-agent'
-        }
-    }
-    
-    environment {
-        PATH = "/usr/local/bin:$PATH"
-    }
+    agent none
 
     stages {
         stage('Build') {
+            agent {
+                kubernetes {
+                    label 'my-kubernetes-agent'
+                }
+            }
             steps {
                 echo 'Executing the build command...'
                 sh 'your_build_command'
@@ -19,6 +16,11 @@ pipeline {
         }
 
         stage('Test') {
+            agent {
+                kubernetes {
+                    label 'my-kubernetes-agent'
+                }
+            }
             steps {
                 echo 'Executing the test command...'
                 sh 'your_test_command'
@@ -27,6 +29,11 @@ pipeline {
         }
 
         stage('Deploy') {
+            agent {
+                kubernetes {
+                    label 'my-kubernetes-agent'
+                }
+            }
             steps {
                 echo 'Executing the deployment command...'
                 sh 'your_deploy_command'
