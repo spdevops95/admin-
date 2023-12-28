@@ -8,8 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                  sh 'yum update -y
+                echo 'Building the project...
                 // sh 'Building the project with Maven...'
             }
         }
