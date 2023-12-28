@@ -9,7 +9,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'yum install docker -y'
+                sh 'yum install -y'
+                 sh 'yum install docker -y'
                 // Replace 'your_build_command' with the actual build command
             }
         }
