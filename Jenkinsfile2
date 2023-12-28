@@ -10,13 +10,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                  'echo '
-            }
-        }
-
+ 
         stage('Test') {
-            steps {
-                 'echo'
+            steps 
             }
         }
 
