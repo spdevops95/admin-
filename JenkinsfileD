@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'apt install docker -y'
+                sh 'yum install docker -y'
                 // Replace 'your_build_command' with the actual build command
             }
         }
