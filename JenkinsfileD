@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    
+    environment {
+        PATH = "/usr/local/bin:$PATH"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+                sh 'your_build_command'
+                // Replace 'your_build_command' with the actual build command
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'your_test_command'
+                // Replace 'your_test_command' with the actual test command
+            }
+        }
+
+        stage('Run') {
+            steps {
+                echo 'Running the application...'
+                sh 'your_run_command'
+                // Replace 'your_run_command' with the actual command to run your application
+            }
+        }
+
+        stage('SonarQube Scan') {
+            steps {
+                echo 'Running SonarQube scan...'
+                withSonarQubeEnv('Your_SonarQube_Environment_Variable') {
+                    sh 'YourSonarQubeScanner'
+                    // Replace 'YourSonarQubeScanner' with the actual command for SonarQube scanning
+                }
+            }
+        }
+
+        stage('Static Code Analysis') {
+            steps {
+                echo 'Running static code analysis...'
+                sh 'YourStaticCodeScanner'
+                // Replace 'YourStaticCodeScanner' with the actual command for your static code analysis tool
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded! Ready for the next steps.'
+            // Add success post-build actions here
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+            // Add failure handling or notifications here
+        }
+    }
+}
