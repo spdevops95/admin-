@@ -5,51 +5,55 @@ pipeline {
         PATH = "/usr/local/bin:$PATH"
     }
 
-    stages {
+  stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                sh 'your_build_command'
-                // Replace 'your_build_command' with the actual build command
+                echo 'Building the project with Gradle...'
+                sh './gradlew build'
             }
         }
 
+        stages {
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'your_test_command'
-                // Replace 'your_test_command' with the actual test command
+                echo 'Running tests with Maven...'
+                sh 'mvn test'
             }
         }
 
+        stages {
         stage('Run') {
             steps {
-                echo 'Running the application...'
-                sh 'your_run_command'
-                // Replace 'your_run_command' with the actual command to run your application
+                echo 'Running the Docker container...'
+                sh 'docker run -p 8080:80 your-image-name'
+            }
+
             }
         }
 
-        stage('Post Build') {
-            steps {
-                echo 'Performing post-build actions...'
-                // Add your post-build actions here
+        post {
+        success {
+            echo 'Post-build actions for success...'
+            // Add your post-build success actions here
+            // For example, notify success or trigger additional jobs
             }
         }
 
-        stage('SonarQube Scan') {
+     stage('SonarQube Scan') {
             steps {
                 echo 'Running SonarQube scan...'
-                sh 'your_sonar_scan_command'
-                // Replace 'your_sonar_scan_command' with the actual command for SonarQube scanning
+                withSonarQubeEnv('Your_SonarQube_Environment_Variable') {
+                    sh 'mvn sonar:sonar'
             }
         }
 
+        stages {
         stage('Static Code Analysis') {
             steps {
                 echo 'Running static code analysis...'
                 sh 'YourStaticCodeScanner'
-                // Replace 'YourStaticCodeScanner' with the actual static code analysis tool command
+                // Replace 'YourStaticCodeScanner' with the actual command for your static code analysis tool
+
             }
         }
     }
